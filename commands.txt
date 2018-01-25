@@ -1,0 +1,3 @@
+run tests:
+  From the root neatDS folder run this command:
+    python -m unittest discover test

@@ -4,7 +4,7 @@ from sklearn import preprocessing
 from sklearn.utils import resample
 from math import ceil
 
-class Neat:
+class NeatData:
 
     def __init__(self, trainX, trainY, indexColumns=[], skipColumns=[]):
         InputValidator()
