@@ -11,14 +11,14 @@ class NeatData:
 
     def cleanTrainingDataset(self, trainX, trainY, indexColumns=[], skipColumns=[]):
         self.InputValidator()
-        self.yCleaner = YCleaner(trainX, trainY)
+        trainX, trainY = YCleaner(trainX, trainY)
         self.columnNameCleaner = ColumnNameCleaner()
         self.columnDataTyper = ColumnDataTyper()
-        self.indexer = Indexer()
         self.yConverter = YConverter()
         self.numberCleaner = NumberCleaner()
         self.datetimeCleaner = DatetimeCleaner()
         self.categoryCleaner = CategoryCleaner()
+        self.indexer = Indexer() #TODO: delete this comment.  All indexing should be last in this iteration.
         return trainX, trainY
 
     def cleanTestDataset(self, testX):
@@ -31,15 +31,13 @@ class NeatData:
         return
 
     def _cleanTestDataset(testX):
-
-
+        pass
 
     def getYAsNumber(self, testY):
-        TargetConverter().convertToString()
-        pass
+        return TargetConverter().convertToNumber(testY)
 
-    def getYAsStringUsingMapping(self, testY):
-        pass
+    def getYAsString(self, testY):
+        return TargetConverter().convertToString(testY)
 
         #return cleanTestX, cleanTestY
 
