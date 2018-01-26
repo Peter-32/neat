@@ -1,4 +1,4 @@
-class InputValidator:
+class NeatdataInputValidator:
 
     def __init__(self, trainX, trainY):
         self._testDifferingLengths(trainX, trainY)
