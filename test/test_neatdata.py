@@ -62,8 +62,9 @@ class TestNeatData(unittest.TestCase):
         cleanTrainX, cleanTrainY = neatdata.cleanTrainingDataset(trainX, trainY)
         # Assert
         columns = cleanTrainX.columns.values.tolist()
-        col2Exists = 'col2' in columns
-        self.assertEqual(col2Exists, False)        
+        self.assertEqual('col1' in columns, True)
+        self.assertEqual('col2' in columns, False)
+        self.assertEqual('col3' in columns, True)
 
     if __name__ == "__main__":
         unittest.main()
