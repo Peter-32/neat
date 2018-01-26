@@ -3,44 +3,39 @@ import numpy as np
 from sklearn import preprocessing
 from sklearn.utils import resample
 from math import ceil
+from copy import deepcopy
 
 class NeatData:
 
     def __init__(self):
-        self.indexer = None
+        self.indexer = None # TODO: Unsure
+        self.numberColumns, self.categoryColumns, self.datetimeColumns = None, None, None
 
     def cleanTrainingDataset(self, trainX, trainY, indexColumns=[], skipColumns=[]):
-        trainX, trainY = self._initialTrainingDatasetClean(trainX, trainY)
-        trainX, trainY = self._datatypeSpecificTrainingDatasetClean(trainX, trainY)
-        trainX, trainY = self._finalTrainingDatasetClean(trainX, trainY)
+        trainX, trainY = self._initial(trainX, trainY)
+        trainX, trainY = self._datatypeSpecific(trainX, trainY)
+        trainX, trainY = self._final(trainX, trainY)
         return trainX, trainY
 
-    def _initialTrainingDatasetClean(self, trainX, trainY):
+    def _initial(self, trainX, trainY):
         self._validateTrainingInput(trainX, trainY)
         trainX, trainY = YCleaner().execute(trainX, trainY)
         trainX, indexColumns, skipColumns = ColumnNameCleaner().execute(trainX, indexColumns, skipColumns)
-        numberColumns, categoryColumns, datetimeColumns = ColumnDataTypeGetter().execute(trainX, indexColumns, skipColumns)
+        self.numberColumns, self.categoryColumns, self.datetimeColumns = ColumnDataTypeGetter().execute(trainX, indexColumns, skipColumns)
         return trainX, trainY
 
     def _validateTrainingInput(self, trainX, trainY):
         if len(trainY) != len(trainX.index): raise Exception('Error: trainX and trainY are differing lengths.') else None
 
-    def _datatypeSpecificTrainingDatasetClean(self, trainX, trainY):
-        self.numberCleaner = NumberCleaner()
+    def _datatypeSpecific(self, trainX, trainY):
+        self.numberCleaner = NumberCleaner().execute(trainX, deepcopy(self.numberColumns))
         self.datetimeCleaner = DatetimeCleaner()
         self.categoryCleaner = CategoryCleaner()
         return trainX, trainY
 
-    def _finalTrainingDatasetClean(self, trainX, trainY):
+    def _final(self, trainX, trainY):
         self.indexer = Indexer() #TODO: delete this comment.  All indexing should be last in this iteration.
         return trainX, trainY
-
-
-
-
-
-
-
 
 
 
