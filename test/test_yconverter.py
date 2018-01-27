@@ -15,10 +15,10 @@ class TestYConverter(unittest.TestCase):
         # Act
         yConverter = YConverter()
         yConverter.setYMappings(strings)
-        test1 = yConverter.convertToNumber(strings)
-        test2 = yConverter.convertToString(strings)
-        test3 = yConverter.convertToNumber(numbers)
-        test4 = yConverter.convertToString(numbers)
+        test1 = yConverter.convertToNumberForModeling(strings)
+        test2 = yConverter.convertToStringOrNumberForPresentation(strings)
+        test3 = yConverter.convertToNumberForModeling(numbers)
+        test4 = yConverter.convertToStringOrNumberForPresentation(numbers)
         # Assert
         for i in range(len(strings)):
             self.assertEqual(test1[i], numbers[i])
@@ -33,16 +33,14 @@ class TestYConverter(unittest.TestCase):
         # Act
         yConverter = YConverter()
         yConverter.setYMappings(numbers)
-        test1 = yConverter.convertToNumber(strings)
-        test2 = yConverter.convertToString(strings)
-        test3 = yConverter.convertToNumber(numbers)
-        test4 = yConverter.convertToString(numbers)
+        test1 = yConverter.convertToNumberForModeling(numbers)
+        test2 = yConverter.convertToStringOrNumberForPresentation(numbers)
         # Assert
         for i in range(len(strings)):
+            self.assertRaises(Exception, yConverter.convertToNumberForModeling, strings)
+            self.assertRaises(Exception, yConverter.convertToStringOrNumberForPresentation, strings)
             self.assertEqual(test1[i], numbers[i])
-            self.assertEqual(test2[i], strings[i])
-            self.assertEqual(test3[i], numbers[i])
-            self.assertEqual(test4[i], strings[i])
+            self.assertEqual(test2[i], numbers[i])
 
     def testYConverter_SetMappingWithNanValuesSkipsNanMapping(self):
         # Assemble
