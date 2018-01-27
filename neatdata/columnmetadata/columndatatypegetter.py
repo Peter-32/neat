@@ -14,5 +14,5 @@ class ColumnDataTypeGetter:
                 categoryColumns.append(column)
             else:
                 datetimeColumns.append(column)
-                numberColumns.append(column)
+                numberColumns.append(column) # Assuming dates always become numbers early when cleaning
         return numberColumns, categoryColumns, datetimeColumns

@@ -10,6 +10,7 @@ class NeatData:
     def __init__(self):
         self.indexer = None # TODO: Unsure
         self.numberColumns, self.categoryColumns, self.datetimeColumns = None, None, None
+        self.indexColumns, self.skipColumns = None, None
 
     def cleanTrainingDataset(self, trainX, trainY, indexColumns=[], skipColumns=[]):
         trainX, trainY = self._initial(trainX, trainY)
@@ -36,7 +37,6 @@ class NeatData:
     def _final(self, trainX, trainY):
         self.indexer = Indexer() #TODO: delete this comment.  All indexing should be last in this iteration.
         return trainX, trainY
-
 
 
 
