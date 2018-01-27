@@ -1,3 +1,5 @@
+import numpy as np
+
 class YCleaner:
 
     def __init__(self):

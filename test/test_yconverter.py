@@ -1,6 +1,7 @@
 import unittest
 import numpy as np
 from neatdata.y.yconverter import *
+from neatdata.y.ycleaner import *
 
 
 class TestYConverter(unittest.TestCase):

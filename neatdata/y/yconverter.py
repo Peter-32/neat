@@ -9,12 +9,9 @@ class YConverter:
         i = 0
         for value in np.unique(y):
             if value != None and value.strip() != "":
-                self.trainYMappingsStrToNum[value] = i
-                self.trainYMappingsNumToStr[i] = value
+                self._trainYMappingsStrToNum[value] = i
+                self._trainYMappingsNumToStr[i] = value
                 i = i + 1
-        self._trainYMappingsNumToStr = None
-        self._trainYMappingsStrToNum = None
-        return
 
     def convertToNumber(self, y):
         pass
