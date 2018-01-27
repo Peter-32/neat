@@ -1,4 +1,6 @@
 import unittest
+import pandas as pd
+import numpy as np
 from neatdata.y.ycleaner import *
 
 class TestYCleaner(unittest.TestCase):
@@ -10,9 +12,9 @@ class TestYCleaner(unittest.TestCase):
         trainYNumbersStringForm = ["1", "1", "1", "1", "2", "3", "4"]
         yCleaner = YCleaner()
         # Act
-        trainYStringsCastedAsString = yCleaner._castAsString(trainYStrings)
-        trainYNumbersCastedAsString = yCleaner._castAsString(trainYNumbers)
+        trainYStringsCastedAsString = yCleaner._castAsNumpyString(trainYStrings)
+        trainYNumbersCastedAsString = yCleaner._castAsNumpyString(trainYNumbers)
         # Assert
-        for i in range(len(trainY)-1):
+        for i in range(len(trainY)):
             self.assertEqual(trainYStringsCastedAsString[i], trainYStrings[i])
             self.assertEqual(trainYNumbersCastedAsString[i], trainYNumbersStringForm[i])

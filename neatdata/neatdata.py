@@ -25,7 +25,7 @@ class NeatData:
         return trainX, trainY
 
     def _validateTrainingInput(self, trainX, trainY):
-        if len(trainY) != len(trainX.index): raise Exception('Error: trainX and trainY are differing lengths.') else None
+        if len(trainY) != len(trainX.index): raise Exception('Error: trainX and trainY are differing lengths.')
 
     def _datatypeSpecific(self, trainX, trainY):
         self.numberCleaner = NumberCleaner().execute(trainX, deepcopy(self.numberColumns))
@@ -46,7 +46,7 @@ class NeatData:
         self._cleanTestDataset(testX)
 
     def _validateCleanedTrainingDataset(self):
-        if self.indexer = None: raise Exception('Error: cleanTrainingDataset() must be run first.')
+        if self.indexer == None: raise Exception('Error: cleanTrainingDataset() must be run first.')
 
     def _cleanTestDataset(testX):
         pass

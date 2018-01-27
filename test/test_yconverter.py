@@ -1,4 +1,5 @@
 import unittest
+import pandas as pd
 import numpy as np
 from neatdata.y.yconverter import *
 from neatdata.y.ycleaner import *
