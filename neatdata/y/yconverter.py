@@ -3,7 +3,7 @@ import numpy as np
 class YConverter:
 
     def __init__(self):
-        self.trainYMappingsStrToNum, self.trainYMappingsNumToStr = None, None
+        self._trainYMappingsStrToNum, self._trainYMappingsNumToStr = None, None
 
     def setYMappings(self, y):
         i = 0
@@ -12,8 +12,8 @@ class YConverter:
                 self.trainYMappingsStrToNum[value] = i
                 self.trainYMappingsNumToStr[i] = value
                 i = i + 1
-        self.trainYMappingsNumToStr = None
-        self.trainYMappingsStrToNum = None
+        self._trainYMappingsNumToStr = None
+        self._trainYMappingsStrToNum = None
         return
 
     def convertToNumber(self, y):
