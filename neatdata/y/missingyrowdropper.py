@@ -10,7 +10,7 @@ class MissingYRowDropper:
         self.rowsToDrop = []
         trainX['__trainY__'] = trainY
         self._appendToRowsToDropForNoneValue(trainX)
-        self._appendToRowsToDropForNan(trainX, trainY)
+        self._appendToRowsToDropForNanAndInf(trainX, trainY)
         trainX = trainX.drop(trainX.index[self.rowsToDrop])
         trainY = trainX['__trainY__'].values
         trainX = trainX.drop(['__trainY__'], 1)
