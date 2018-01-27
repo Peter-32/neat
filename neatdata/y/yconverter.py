@@ -1,10 +1,12 @@
 class YConverter:
 
     def __init__(self):
-        pass
+        self.trainYMappingsStrToNum, self.trainYMappingsNumToStr = None, None
 
     def setYMappings(self, y):
-        pass
+        self.trainYMappingsNumToStr = None
+        self.trainYMappingsStrToNum = None
+        return
 
     def convertTrainYToNumeric(self, y):
         pass ## TODO: is this duplicated?
