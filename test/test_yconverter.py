@@ -3,14 +3,27 @@ from neatdata.y.yconverter import *
 
 class TestYConverter(unittest.TestCase):
 
-    def testYConverter_SetYMappings(self):
+    def testYConverter_ConvertToNumberAndString(self):
         # Assemble
-        now = pd.datetime.now()
-        trainX = pd.DataFrame({'col1': [1,1,1,1,1,1,1],
-                               'col2': ['a','a','a','a','a','a','a'],
-                               'col3': [now,now,now,now,now,now,now]})
-        trainY = [1, 1, 1, 1, 2, 3, 4, 2]
+        trainYStr = ['a', 'a', 'a', 'a', 'b', 'c', 'd']
+        trainYNum = [1, 1, 1, 1, 2, 3, 4]
         # Act
-        cleanTrainX, cleanTrainY = YConverter().setYMappings(trainY)
+        yConverter = YConverter().setYMappings(trainYStr)
+        TrainYConvertedToNum = yConverter.convertToNumber(trainYStr)
+        TrainYConvertedToStr = yConverter.convertToString(TrainYConvertedToNum)
         # Assert
-        self.assertEqual(4, 4)
+        for i in range(len(trainYStr)-1):
+            self.assertEqual(TrainYConvertedToStr[i], trainYStr[i])
+            self.assertEqual(TrainYConvertedToNum[i], trainYNum[i])
+
+    def testYConverter_SetMappingWithNanValuesSkipsNanMapping(self):
+        # Assemble
+        trainY = [1, 1, 1, 1, 2, 3, nan]
+        # Act
+        yConverter = YConverter().setYMappings(trainY)
+        trainY = yConverter.convertToNumber(trainYStr)
+        TrainYConvertedToStr = yConverter.convertToString(TrainYConvertedToNum)
+        # Assert
+        for i in range(len(trainYStr)-1):
+            self.assertEqual(TrainYConvertedToStr[i], trainYStr[i])
+            self.assertEqual(TrainYConvertedToNum[i], trainYNum[i])
