@@ -8,19 +8,41 @@ from neatdata.y.ycleaner import *
 
 class TestYConverter(unittest.TestCase):
 
-    def testYConverter_ConvertToNumberAndString(self):
+    def testYConverter_ConvertToNumberAndString_SetYMappingsWithStrings(self):
         # Assemble
-        trainYStr = ['a', 'a', 'a', 'a', 'b', 'c', 'd']
-        trainYNum = [1, 1, 1, 1, 2, 3, 4]
+        strings = ['a', 'a', 'a', 'a', 'b', 'c', 'd']
+        numbers = [0, 0, 0, 0, 1, 2, 3]
         # Act
         yConverter = YConverter()
-        yConverter.setYMappings(trainYStr)
-        trainYConvertedToNum = yConverter.convertToNumber(trainYStr)
-        trainYConvertedToStr = yConverter.convertToString(TrainYConvertedToNum)
+        yConverter.setYMappings(strings)
+        test1 = yConverter.convertToNumber(strings)
+        test2 = yConverter.convertToString(strings)
+        test3 = yConverter.convertToNumber(numbers)
+        test4 = yConverter.convertToString(numbers)
         # Assert
-        for i in range(len(trainYStr)):
-            self.assertEqual(trainYConvertedToStr[i], trainYStr[i])
-            self.assertEqual(trainYConvertedToNum[i], trainYNum[i])
+        for i in range(len(strings)):
+            self.assertEqual(test1[i], numbers[i])
+            self.assertEqual(test2[i], strings[i])
+            self.assertEqual(test3[i], numbers[i])
+            self.assertEqual(test4[i], strings[i])
+
+    def testYConverter_ConvertToNumberAndString_SetYMappingsWithNumbers(self):
+        # Assemble
+        strings = ['a', 'a', 'a', 'a', 'b', 'c', 'd']
+        numbers = [0, 0, 0, 0, 1, 2, 3]
+        # Act
+        yConverter = YConverter()
+        yConverter.setYMappings(numbers)
+        test1 = yConverter.convertToNumber(strings)
+        test2 = yConverter.convertToString(strings)
+        test3 = yConverter.convertToNumber(numbers)
+        test4 = yConverter.convertToString(numbers)
+        # Assert
+        for i in range(len(strings)):
+            self.assertEqual(test1[i], numbers[i])
+            self.assertEqual(test2[i], strings[i])
+            self.assertEqual(test3[i], numbers[i])
+            self.assertEqual(test4[i], strings[i])
 
     def testYConverter_SetMappingWithNanValuesSkipsNanMapping(self):
         # Assemble

@@ -5,11 +5,13 @@ class YConverter:
 
     def __init__(self):
         self._trainYMappingsStrToNum, self._trainYMappingsNumToStr = {'NotFound': -99}, {-99: 'NotFound'}
-        self._setMappingsAsStringType = None
+        self._yWasStringDuringSetYMappingsFunction = None
+        self.setYMappingsWasRun = False
 
     def setYMappings(self, y):
-        self._setMappingsAsStringType = True if isStringType(y) else False
-        if not self._setMappingsAsStringType:
+        self.setYMappingsWasRun = True
+        self._yWasStringDuringSetYMappingsFunction = True if isStringType(y) else False
+        if not self._yWasStringDuringSetYMappingsFunction:
             return
         i = 0
         for value in np.unique(y):
@@ -19,30 +21,48 @@ class YConverter:
                 i = i + 1
 
     def convertToNumber(self, y):
-        if self._setMappingsAsStringType:
-            pass
+        y = castAsNumpy(y)
+        yIsStringType = isStringType(y)
+        self._raiseExceptionsForConvertToNumber(yIsStringType)
+        if self._yWasStringDuringSetYMappingsFunction:
+            for i in newDataY.index:
+                if newDataY[i] == None or y[i] not in self._trainYMappingsStrToNum.keys():
+                    newDataY[i] = 'NotFound'
+            return np.vectorize(self._trainYMappingsStrToNum.get)(y)
+        else:
+            y[y == np.inf] = -99
+            y[y == -np.inf] = -99
+            for i in y.index:
+                if np.isnan(y[i]) or y[i] not in self._trainYMappingsStrToNum.values():
+                    y[i] = -99
+            return y
+
+    def _raiseExceptionsForConvertToNumber(self, yIsStringType):
+        if not self.setYMappingsWasRun: raise Exception('Error: run setYMappings before convertToNumber')
+        if not self._yWasStringDuringSetYMappingsFunction and yIsStringType: raise Exception('Error: Y was not string during setYMappings, but now it is a string during convertToNumber.')
 
     def convertToString(self, y):
-        if self._setMappingsAsStringType:
-            pass
+        y = self.castAsNumpy(y)
+        if self._yWasStringDuringSetYMappingsFunction:
+            for i in newDataY.index:
+                if newDataY[i] == None or y[i] not in self._trainYMappingsStrToNum.keys():
+                    newDataY[i] = 'NotFound'
+            return np.vectorize(self._trainYMappingsStrToNum.get)(y)
+        else:
+            y[y == np.inf] = -99
+            y[y == -np.inf] = -99
+            for i in y.index:
+                if np.isnan(y[i]) or y[i] not in self._trainYMappingsStrToNum.values():
+                    y[i] = -99
+            return y
 
 
 
 def getYAsNumber(self, y):
-    output = None
-    y = self.castAsNumpy(y)
-    if self._setMappingsAsStringType:
-        for i in newDataY.index:
-            if newDataY[i] == None or np.isnan(newDataY[i]) or newDataY[i] not in self._trainYMappingsStrToNum.keys():
-                newDataY[i] = 'NotFound'
-        return np.vectorize(self._trainYMappingsStrToNum.get)(y)
-    else:
-        y[y == np.inf] = -99
-        y[y == -np.inf] = -99
-        for i in y.index:
-            if np.isnan(y[i]) or y[i] not in self._trainYMappingsStrToNum.values():
-                y[i] = -99
-        return y
+
+
+
+
 
 
 
