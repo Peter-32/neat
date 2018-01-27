@@ -9,7 +9,7 @@ class YCleaner:
         self.trained = False
 
     def cleanTrainingY(self, x, y):
-        y = self._castAsNumpy(y)
+        y = self.castAsNumpy(y)
         trainX, trainY = MissingYRowDropper().execute(trainX, trainY)
         if isStringType(y):
             self._initializeYConverter()

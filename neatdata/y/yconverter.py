@@ -18,7 +18,7 @@ class YConverter:
             y[y == np.inf] = -99
             y[y == -np.inf] = -99
             for value in np.unique(y):
-                if value != None and not np.isnan(y[i]):
+                if value != None and not np.isnan(value):
                     self._trainYListOfValidInputs.append(value)
             return
         i = 0
@@ -33,11 +33,11 @@ class YConverter:
         yIsStringType = isStringType(y)
         self._raiseExceptionsForConvertToNumberForModeling(yIsStringType)
         if yIsStringType and self._stringWasPassedToMapping:
-            return convertStringToNumber(y)
+            return self._convertStringToNumber(y)
         elif not yIsStringType and self._stringWasPassedToMapping:
-            return _convertNumberToNumberWithMapping(y)
+            return self._convertNumberToNumberWithMapping(y)
         elif not yIsStringType and not self._stringWasPassedToMapping:
-            return _convertNumberToNumberWithList(y)
+            return self._convertNumberToNumberWithList(y)
         else:
             raise Exception('Error: Impossible event.')
 
@@ -46,7 +46,7 @@ class YConverter:
         if not self._stringWasPassedToMapping and yIsStringType: raise Exception('Error: Y was not string during setYMappings, therefore Y must be a number.')
 
     def _convertStringToNumber(self, y):
-        y = _prepareStringForMapping(y)
+        y = self._prepareStringForMapping(y)
         return np.vectorize(self._trainYMappingsStrToNum.get)(y)
 
     def _prepareStringForMapping(self, y):
@@ -56,7 +56,7 @@ class YConverter:
         return y
 
     def _convertNumberToNumberWithMapping(self, y):
-        return _prepareNumberForMapping
+        return self._prepareNumberForMapping
 
     def _prepareNumberForMapping(self, y):
         y[y == np.inf] = -99
@@ -79,9 +79,9 @@ class YConverter:
         yIsStringType = isStringType(y)
         self._raiseExceptionsForconvertToStringOrNumberForPresentation(yIsStringType)
         if yIsStringType and self._stringWasPassedToMapping:
-            return _convertStringToString(y)
+            return self._convertStringToString(y)
         elif not yIsStringType and self._stringWasPassedToMapping:
-            return _convertNumberToString(y)
+            return self._convertNumberToString(y)
         elif not yIsStringType and not self._stringWasPassedToMapping:
             return y
         else:
