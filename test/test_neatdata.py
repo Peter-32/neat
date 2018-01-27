@@ -11,6 +11,18 @@ class TestNeatData(unittest.TestCase):
     # def tearDownClass(cls):
     #     cls._connection.destroy()
 
+    def testCleanTrainingDataset_InvalidLengths(self):
+        # Assemble
+        neatdata = NeatData()
+        now = pd.datetime.now()
+        trainX = pd.DataFrame({'col1': [1,1,1,1,1,1,1],
+                               'col2': ['a','a','a','a','a','a','a'],
+                               'col3': [now,now,now,now,now,now,now]})
+        trainY = ['a','b','c','a','b','c']
+        # Act
+        # Assert
+        self.assertRaises(SomeCoolException, neatdata.cleanTrainingDataset, trainX, trainY)
+
     def testCleanTrainingDataset_ColumnsStayTheSame(self):
         # Assemble
         neatdata = NeatData()
@@ -65,6 +77,10 @@ class TestNeatData(unittest.TestCase):
         self.assertEqual('col1' in columns, True)
         self.assertEqual('col2' in columns, False)
         self.assertEqual('col3' in columns, True)
+
+
+
+
 
     if __name__ == "__main__":
         unittest.main()
