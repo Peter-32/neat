@@ -3,7 +3,7 @@ class NumberCleaner:
     def __init__():
         self.trainX, self.numberColumns = None, None
 
-    def initialize(trainX, numberColumns):
+    def initialize(self, trainX, numberColumns):
         self.trainX, self.numberColumns = trainX, numberColumns
 
     def execute(self):

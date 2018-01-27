@@ -29,9 +29,12 @@ class NeatData:
         if len(trainY) != len(trainX.index): raise Exception('Error: trainX and trainY are differing lengths.')
 
     def _datatypeSpecific(self, trainX, trainY):
-        self.numberCleaner = NumberCleaner().execute(trainX, deepcopy(self.numberColumns))
         self.datetimeCleaner = DatetimeCleaner()
+        trainX = self.datetimeCleaner.execute(trainX, deepcopy(self.datetimeColumns))
+        self.numberCleaner = NumberCleaner()
+        trainX = self.numberCleaner.execute(trainX, deepcopy(self.numberColumns))
         self.categoryCleaner = CategoryCleaner()
+        trainX = self.categoryCleaner.execute(trainX, deepcopy(self.categoryColumns))
         return trainX, trainY
 
     def _final(self, trainX, trainY):
