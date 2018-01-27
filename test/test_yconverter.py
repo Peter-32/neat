@@ -15,12 +15,12 @@ class TestYConverter(unittest.TestCase):
         # Act
         yConverter = YConverter()
         yConverter.setYMappings(trainYStr)
-        TrainYConvertedToNum = yConverter.convertToNumber(trainYStr)
-        TrainYConvertedToStr = yConverter.convertToString(TrainYConvertedToNum)
+        trainYConvertedToNum = yConverter.convertToNumber(trainYStr)
+        trainYConvertedToStr = yConverter.convertToString(TrainYConvertedToNum)
         # Assert
         for i in range(len(trainYStr)):
-            self.assertEqual(TrainYConvertedToStr[i], trainYStr[i])
-            self.assertEqual(TrainYConvertedToNum[i], trainYNum[i])
+            self.assertEqual(trainYConvertedToStr[i], trainYStr[i])
+            self.assertEqual(trainYConvertedToNum[i], trainYNum[i])
 
     def testYConverter_SetMappingWithNanValuesSkipsNanMapping(self):
         # Assemble
@@ -29,7 +29,7 @@ class TestYConverter(unittest.TestCase):
                                'col2': ['a','a','a','a','a','a','a'],
                                'col3': [now,now,now,now,now,now,now]})
         y = [0, 0, 0, 0, 1, 2, np.nan]
-        y = YCleaner()._castAsNumpyString(y)
+        y = YCleaner()._castAsNumpy(y)
         x, y = MissingYRowDropper().execute(x, y)
         yConverter = YConverter()
         # Act
