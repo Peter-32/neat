@@ -1,6 +1,7 @@
 import unittest
 import pandas as pd
 import numpy as np
+from neatdata.y.missingyrowdropper import *
 from neatdata.y.yconverter import *
 from neatdata.y.ycleaner import *
 
@@ -22,28 +23,26 @@ class TestYConverter(unittest.TestCase):
 
     def testYConverter_SetMappingWithNanValuesSkipsNanMapping(self):
         # Assemble
-        y = [1, 1, 1, 1, 2, 3, np.nan]
+        now = pd.datetime.now()
+        x = pd.DataFrame({'col1': [1,1,1,1,1,1,1],
+                               'col2': ['a','a','a','a','a','a','a'],
+                               'col3': [now,now,now,now,now,now,now]})
+        y = [0, 0, 0, 0, 1, 2, np.nan]
         y = YCleaner()._castAsNumpyString(y)
-        y.remove('nan')
-        print(y)
-        print(y)
-        print(y)
-        print(y)
-        print("HI")
+        x, y = MissingYRowDropper().execute(x, y)
         yConverter = YConverter()
         # Act
         yConverter.setYMappings(y)
         # Assert
-        print(yConverter._trainYMappingsStrToNum)
         self.assertEqual(len(yConverter._trainYMappingsStrToNum), 4)
         self.assertEqual(len(yConverter._trainYMappingsNumToStr), 4)
+        self.assertTrue(0 in yConverter._trainYMappingsNumToStr)
         self.assertTrue(1 in yConverter._trainYMappingsNumToStr)
         self.assertTrue(2 in yConverter._trainYMappingsNumToStr)
-        self.assertTrue(3 in yConverter._trainYMappingsNumToStr)
         self.assertTrue(-99 in yConverter._trainYMappingsNumToStr)
+        self.assertTrue("0" in yConverter._trainYMappingsStrToNum)
         self.assertTrue("1" in yConverter._trainYMappingsStrToNum)
         self.assertTrue("2" in yConverter._trainYMappingsStrToNum)
-        self.assertTrue("3" in yConverter._trainYMappingsStrToNum)
         self.assertTrue("NotFound" in yConverter._trainYMappingsStrToNum)
 
     def testYConverter_SetMappingAutoIncrementsStrings(self):
@@ -55,10 +54,10 @@ class TestYConverter(unittest.TestCase):
         # Assert
         self.assertEqual(len(yConverter._trainYMappingsStrToNum), 5)
         self.assertEqual(len(yConverter._trainYMappingsNumToStr), 5)
+        self.assertTrue(0 in yConverter._trainYMappingsNumToStr)
         self.assertTrue(1 in yConverter._trainYMappingsNumToStr)
         self.assertTrue(2 in yConverter._trainYMappingsNumToStr)
         self.assertTrue(3 in yConverter._trainYMappingsNumToStr)
-        self.assertTrue(4 in yConverter._trainYMappingsNumToStr)
         self.assertTrue(-99 in yConverter._trainYMappingsNumToStr)
         self.assertTrue("a" in yConverter._trainYMappingsStrToNum)
         self.assertTrue("b" in yConverter._trainYMappingsStrToNum)
