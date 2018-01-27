@@ -3,7 +3,7 @@ import numpy as np
 class YConverter:
 
     def __init__(self):
-        self._trainYMappingsStrToNum, self._trainYMappingsNumToStr = {}, {}
+        self._trainYMappingsStrToNum, self._trainYMappingsNumToStr = {'NotFound': -99}, {-99: 'NotFound'}
 
     def setYMappings(self, y):
         i = 0

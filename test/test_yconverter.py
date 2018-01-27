@@ -24,10 +24,17 @@ class TestYConverter(unittest.TestCase):
         # Assemble
         y = [1, 1, 1, 1, 2, 3, np.nan]
         y = YCleaner()._castAsNumpyString(y)
+        y.remove('nan')
+        print(y)
+        print(y)
+        print(y)
+        print(y)
+        print("HI")
         yConverter = YConverter()
         # Act
         yConverter.setYMappings(y)
         # Assert
+        print(yConverter._trainYMappingsStrToNum)
         self.assertEqual(len(yConverter._trainYMappingsStrToNum), 4)
         self.assertEqual(len(yConverter._trainYMappingsNumToStr), 4)
         self.assertTrue(1 in yConverter._trainYMappingsNumToStr)

@@ -6,9 +6,10 @@ class YCleaner:
         self.yConverter = None
 
     def cleanTrainingY(self, x, y):
+        trainX, trainY = MissingYRowDropper().execute(trainX, trainY)
         y = self._castAsNumpyString()
+        # y = self._removeNan()
         self._initializeYConverter()
-        trainX, trainY = self.cleanAnyY(trainX, trainY)
         trainX, trainY = YBalancer().execute(trainX, trainY)
         return trainX, trainY
 
@@ -16,16 +17,12 @@ class YCleaner:
         y = np.array(y)
         return y.astype(str)
 
+    # def _removeNan(self, y):
+    #     return [a for a in y if str(a) != 'nan']
+
     def _initializeYConverter(self, y):
         self.yConverter = YConverter()
         self.yConverter.setYMappings(y)
-
-    # def _isStringType(self, y):
-    #     return False if y.dtype.kind in {'O', 'U', 'S'} else True
-
-    def cleanAnyY(self, x, y):
-        trainX, trainY = MissingYRowDropper().execute(trainX, trainY)
-        return trainX, trainY
 
     def convertToNumber(self, y):
         return self.yConverter.convertToNumber(y)
