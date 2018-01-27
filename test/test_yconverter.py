@@ -13,7 +13,8 @@ class TestYConverter(unittest.TestCase):
         trainYStr = ['a', 'a', 'a', 'a', 'b', 'c', 'd']
         trainYNum = [1, 1, 1, 1, 2, 3, 4]
         # Act
-        yConverter = YConverter().setYMappings(trainYStr)
+        yConverter = YConverter()
+        yConverter.setYMappings(trainYStr)
         TrainYConvertedToNum = yConverter.convertToNumber(trainYStr)
         TrainYConvertedToStr = yConverter.convertToString(TrainYConvertedToNum)
         # Assert
@@ -40,9 +41,9 @@ class TestYConverter(unittest.TestCase):
         self.assertTrue(1 in yConverter._trainYMappingsNumToStr)
         self.assertTrue(2 in yConverter._trainYMappingsNumToStr)
         self.assertTrue(-99 in yConverter._trainYMappingsNumToStr)
-        self.assertTrue("0" in yConverter._trainYMappingsStrToNum)
-        self.assertTrue("1" in yConverter._trainYMappingsStrToNum)
-        self.assertTrue("2" in yConverter._trainYMappingsStrToNum)
+        self.assertTrue("0.0" in yConverter._trainYMappingsStrToNum)
+        self.assertTrue("1.0" in yConverter._trainYMappingsStrToNum)
+        self.assertTrue("2.0" in yConverter._trainYMappingsStrToNum)
         self.assertTrue("NotFound" in yConverter._trainYMappingsStrToNum)
 
     def testYConverter_SetMappingAutoIncrementsStrings(self):

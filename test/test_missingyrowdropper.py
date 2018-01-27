@@ -13,13 +13,13 @@ class TestMissingYRowDropper(unittest.TestCase):
                                'col3': [now,now,now,now,now,now,now]})
         trainY = ['a','b','c',None,'b', None, None]
         # Act
-        cleanTrainX, cleanTrainY = MissingYRowDropper().execute(trainX, trainY)
+        trainX, trainY = MissingYRowDropper().execute(trainX, trainY)
         # Assert
         self.assertEqual(len(trainY), 4)
         self.assertEqual(len(trainX.index), 4)
         self.assertEqual(trainY[0], 'a')
-        self.assertEqual(trainY[0], 'b')
-        self.assertEqual(trainY[0], 'c')
-        self.assertEqual(trainY[0], 'b')
+        self.assertEqual(trainY[1], 'b')
+        self.assertEqual(trainY[2], 'c')
+        self.assertEqual(trainY[3], 'b')
         for i, row in self.df.iterrows():
             self.assertEqual(row['col2'], 'a')
