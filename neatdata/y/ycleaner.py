@@ -4,14 +4,15 @@ class YCleaner:
         self.yConverter = None
 
     def cleanTrainingY(self, x, y):
-        y = self._castAsString()
+        y = self._castAsNumpyString()
         self._initializeYConverter()
         trainX, trainY = self.cleanAnyY(trainX, trainY)
         trainX, trainY = YBalancer().execute(trainX, trainY)
         return trainX, trainY
 
-    def _castAsString(self, y):
-        return trainY.astype(str)
+    def _castAsNumpyString(self, y):
+        y = np.array(y)
+        return y.astype(str)
 
     def _initializeYConverter(self, y):
         self.yConverter = YConverter()

@@ -21,7 +21,7 @@ class TestYConverter(unittest.TestCase):
     def testYConverter_SetMappingWithNanValuesSkipsNanMapping(self):
         # Assemble
         y = [1, 1, 1, 1, 2, 3, np.nan]
-        y = y.astype(str)
+        y = YCleaner()._castAsNumpyString(y)
         yConverter = YConverter()
         # Act
         yConverter.setYMappings(y)
