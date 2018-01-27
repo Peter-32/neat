@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from neatdata.numpyhelper.numpyhelper import isStringType, castAsNumpy
+from neatdata.numpyhelper.numpyhelper import *
 
 class YCleaner:
 

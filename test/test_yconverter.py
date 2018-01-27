@@ -29,7 +29,7 @@ class TestYConverter(unittest.TestCase):
                                'col2': ['a','a','a','a','a','a','a'],
                                'col3': [now,now,now,now,now,now,now]})
         y = [0, 0, 0, 0, 1, 2, np.nan]
-        y = YCleaner()._castAsNumpy(y)
+        y = castAsNumpy(y)
         x, y = MissingYRowDropper().execute(x, y)
         yConverter = YConverter()
         # Act
