@@ -8,23 +8,24 @@ class YCleaner:
         self.yConverter = None
         self.trained = False
 
-    def cleanTrainingY(self, x, y):
-        y = self.castAsNumpy(y)
+    def cleanTrainingY(self, trainX, trainY):
+        trainY = castAsNumpy(trainY)
         trainX, trainY = MissingYRowDropper().execute(trainX, trainY)
-        if isStringType(y):
+        if isStringType(trainY):
             self._initializeYConverter()
+        trainYMappingsStrToNum
         trainX, trainY = YBalancer().execute(trainX, trainY)
         self.trained = True
         return trainX, trainY
 
-    def _initializeYConverter(self, y):
+    def _initializeYConverter(self, trainY):
         self.yConverter = YConverter()
-        self.yConverter.setYMappings(y)
+        self.yConverter.setYMappings(trainY)
 
-    def convertToNumber(self, y):
-        if not self.trained: raise Exception('Error: Use cleanTrainingY(x, y) before using convertToNumber(y).')
-        return self.yConverter.convertToNumber(y)
+    def convertToNumber(self, trainY):
+        if not self.trained: raise Exception('Error: Use cleanTrainingY(x, y) before using convertToNumber(trainY).')
+        return self.yConverter.convertToNumber(trainY)
 
-    def convertToString(self, y):
-        if not self.trained: raise Exception('Error: Use cleanTrainingY(x, y) before using convertToString(y).')
-        return self.yConverter.convertToString(y)
+    def convertToString(self, trainY):
+        if not self.trained: raise Exception('Error: Use cleanTrainingY(x, y) before using convertToString(trainY).')
+        return self.yConverter.convertToString(trainY)

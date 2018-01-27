@@ -20,7 +20,9 @@ class MissingYRowDropper:
         for i, row in trainX.iterrows():
             self.rowsToDrop.append(i) if row['__trainY__'] == None else None
 
-    def _appendToRowsToDropForNan(self, trainX, trainY):
+    def _appendToRowsToDropForNanAndInf(self, trainX, trainY):
         if isStringType(trainY):
             for i, row in trainX.iterrows():
                 self.rowsToDrop.append(i) if np.isnan(row['__trainY__']) else None
+                self.rowsToDrop.append(i) if row['__trainY__'] == np.inf else None
+                self.rowsToDrop.append(i) if row['__trainY__'] == -np.inf else None

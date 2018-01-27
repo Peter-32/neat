@@ -20,6 +20,7 @@ class TestYConverter(unittest.TestCase):
         test3 = yConverter.convertToNumberForModeling(numbers)
         test4 = yConverter.convertToStringOrNumberForPresentation(numbers)
         # Assert
+        print(test3)
         for i in range(len(strings)):
             self.assertEqual(test1[i], numbers[i])
             self.assertEqual(test2[i], strings[i])

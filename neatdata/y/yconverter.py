@@ -50,18 +50,18 @@ class YConverter:
         return np.vectorize(self._trainYMappingsStrToNum.get)(y)
 
     def _prepareStringForMapping(self, y):
-        for i in y.index:
+        for i in range(len(y)):
             if y[i] == None or y[i] not in self._trainYMappingsStrToNum.keys():
                 y[i] = 'NotFound'
         return y
 
     def _convertNumberToNumberWithMapping(self, y):
-        return self._prepareNumberForMapping
+        return self._prepareNumberForMapping(y)
 
     def _prepareNumberForMapping(self, y):
         y[y == np.inf] = -99
         y[y == -np.inf] = -99
-        for i in y.index:
+        for i in range(len(y)):
             if np.isnan(y[i]) or y[i] not in self._trainYMappingsStrToNum.values():
                 y[i] = -99
         return y
@@ -69,7 +69,7 @@ class YConverter:
     def _convertNumberToNumberWithList(self, y):
         y[y == np.inf] = -99
         y[y == -np.inf] = -99
-        for i in y.index:
+        for i in range(len(y)):
             if np.isnan(y[i]) or y[i] not in self._trainYListOfValidInputs:
                 y[i] = -99
         return y
@@ -92,8 +92,8 @@ class YConverter:
         if not self._stringWasPassedToMapping and yIsStringType: raise Exception('Error: Y was not string during setYMappings, so converting from string to number is not possible..')
 
     def _convertStringToString(self, y):
-        return _prepareStringForMapping(y)
+        return self._prepareStringForMapping(y)
 
     def _convertNumberToString(self, y):
-        y = _prepareNumberForMapping(y)
+        y = self._prepareNumberForMapping(y)
         return np.vectorize(self._trainYMappingsNumToStr.get)(y)
