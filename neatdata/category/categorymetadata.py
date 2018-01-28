@@ -4,10 +4,12 @@ class CategoryMetadata:
         self.trainX, self.categoryColumns = None, None
         self.valuesThatDontMapTo_Other = None
         self.categoryFrequencies = None
+        self.uniqueCategoryValues = None
 
     def train(trainX, categoryColumns):
         self.trainX, self.categoryColumns = trainX, categoryColumns
         self.valuesThatDontMapTo_Other, self.categoryFrequencies = {}, {}
+        self.uniqueCategoryValues = {}
         self._saveUniqueCategoryValues()
         self._saveCategoryFrequenciesAndValuesThatDontMapTo_Other()
 
