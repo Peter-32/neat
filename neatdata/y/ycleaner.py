@@ -1,6 +1,9 @@
 import pandas as pd
 import numpy as np
 from neatdata.numpyhelper.numpyhelper import *
+from neatdata.y.missingyrowdropper import *
+from neatdata.y.yconverter import *
+from neatdata.y.ybalancer import *
 
 class YCleaner:
 
@@ -12,8 +15,7 @@ class YCleaner:
         trainY = castAsNumpy(trainY)
         trainX, trainY = MissingYRowDropper().execute(trainX, trainY)
         if isStringType(trainY):
-            self._initializeYConverter()
-        trainYMappingsStrToNum
+            self._initializeYConverter(trainY)
         trainX, trainY = YBalancer().execute(trainX, trainY)
         self.trained = True
         return trainX, trainY

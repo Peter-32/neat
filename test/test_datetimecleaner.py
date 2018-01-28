@@ -16,7 +16,7 @@ class TestDatetimeCleaner(unittest.TestCase):
         datetimeColumns = [datetimeColumnName]
         datetimeCleaner = DatetimeCleaner()
         # Act
-        trainX = datetimeCleaner.execute(trainX, deepcopy(datetimeColumns))
+        trainX = datetimeCleaner.clean(trainX, deepcopy(datetimeColumns))
         # Assert
         j = 0
         for i, row in trainX.iterrows():

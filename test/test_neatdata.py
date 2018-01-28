@@ -38,7 +38,7 @@ class TestNeatData(unittest.TestCase):
         # Assert
         for i, row in cleanTrainX.iterrows():
             self.assertEqual(row['col1'], 1)
-            self.assertEqual(row['col2'], 'a')
+            self.assertEqual(row['col2__a'], 1)
             self.assertEqual(row['col3'], 0)
 
     def testNeatData_TestCleanTrainingDataset_ColumnDefaultValues(self):
@@ -53,10 +53,17 @@ class TestNeatData(unittest.TestCase):
         cleanTrainX, cleanTrainY = neatdata.cleanTrainingDataset(trainX, trainY)
         # Assert
         j = 0
+        print(cleanTrainX)
         for i, row in cleanTrainX.iterrows():
-            self.assertEqual(row['col2'], 'a')
+            self.assertEqual(row['col2__a'], 1)
             self.assertEqual(row['col3'], 0)
-            if j < 5:
+            if j == 0:
+                self.assertEqual(row['col1'], 1)
+            elif j == 1:
+                self.assertEqual(row['col1'], 2)
+            elif j == 2:
+                self.assertEqual(row['col1'], 3)
+            elif j == 3 or j == 4:
                 self.assertEqual(row['col1'], 2)
             elif j == 5:
                 self.assertEqual(row['col1'], 1)

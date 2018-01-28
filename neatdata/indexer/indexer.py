@@ -1,3 +1,7 @@
+import pandas as pd
+import numpy as np
+
+
 class Indexer:
 
     def __init__(self):
@@ -6,7 +10,7 @@ class Indexer:
     def execute(self, x, trainY, indexColumns):
         self.x, self.trainY, self.indexColumns = x, trainY, indexColumns
         self._dropDuplicatesAndMissingRowsIfIndexIsSpecified()
-        x = self._addIndex()
+        x = self.addIndex(self.x)
         return x
 
 

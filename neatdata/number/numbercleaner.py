@@ -1,6 +1,9 @@
+from neatdata.number.numbermetadata import *
+from neatdata.number.numbervalueassigner import *
+
 class NumberCleaner:
 
-    def __init__():
+    def __init__(self):
         self.trainX, self.numberColumns = None, None
         self.numberMetadata = None
 
@@ -8,7 +11,7 @@ class NumberCleaner:
         self.trainX, self.numberColumns = trainX, numberColumns
         self.numberMetadata = NumberMetadata()
         self.numberMetadata.train(trainX, self.numberColumns)
-        return clean(trainX)
+        return self.clean(trainX)
 
     def clean(self, x):
         x = NumberValueAssigner().execute(x, self.numberColumns, self.numberMetadata)

@@ -3,7 +3,7 @@ class ColumnNameCleaner:
     def __init__(self):
         pass
 
-    def execute(trainX, indexColumns, skipColumns):
+    def execute(self, trainX, indexColumns, skipColumns):
         trainX = self.cleanColumnNamesOnDF(trainX)
         indexColumns = self._cleanArrayOfColumnNames(indexColumns)
         skipColumns = self._cleanArrayOfColumnNames(skipColumns)

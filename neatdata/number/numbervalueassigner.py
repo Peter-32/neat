@@ -1,3 +1,6 @@
+import pandas as pd
+import numpy as np
+
 class NumberValueAssigner:
 
     def __init__(self):
@@ -5,13 +8,17 @@ class NumberValueAssigner:
 
     def execute(self, x, numberColumns, numberMetadata):
         self.x, self.numberColumns, self.numberMetadata = x, numberColumns, numberMetadata
-        self.x = _fixMissingNumValuesAndInfinity()
-        self.x = _fixHighLeveragePoints()
+        self._fixMissingNumValuesAndInfinity()
+        self._fixHighLeveragePoints()
+        return self.x
 
     def _fixMissingNumValuesAndInfinity(self):
         self.x = self.x.fillna(self.numberMetadata.medians) # optionally: replace self.medians with 0
-        self.x.replace([np.inf, -np.inf], np.nan)
+        self.x = self.x.replace([-np.inf], np.nan)
+        self.x = self.x.fillna(self.numberMetadata.lowerBounds)
+        self.x = self.x.replace([np.inf], np.nan)
         self.x = self.x.fillna(self.numberMetadata.upperBounds)
+
 
     def _fixHighLeveragePoints(self):
         for i, row in self.x.iterrows():

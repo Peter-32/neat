@@ -1,3 +1,6 @@
+import pandas as pd
+import numpy as np
+
 class CategoryMetadata:
 
     def __init__(self):
@@ -6,7 +9,7 @@ class CategoryMetadata:
         self.categoryFrequencies = None
         self.uniqueCategoryValues = None
 
-    def train(trainX, categoryColumns):
+    def train(self, trainX, categoryColumns):
         self.trainX, self.categoryColumns = trainX, categoryColumns
         self.valuesThatDontMapTo_Other, self.categoryFrequencies = {}, {}
         self.uniqueCategoryValues = {}
@@ -16,7 +19,7 @@ class CategoryMetadata:
     def _saveUniqueCategoryValues(self):
         for column in self.categoryColumns:
             self.uniqueCategoryValues[column] = []
-            for value in self.df[column].unique():
+            for value in self.trainX[column].unique():
                 if value == None or pd.isnull(value):
                     continue
                 else:
@@ -27,7 +30,7 @@ class CategoryMetadata:
         for column in self.categoryColumns:
             _otherFrequency = 0
             self.valuesThatDontMapTo_Other[column] = ['_Other']
-            frequencyPercentage = pd.value_counts(self.df[column].values, sort=False, normalize=True)
+            frequencyPercentage = pd.value_counts(self.trainX[column].values, sort=False, normalize=True)
             self.categoryFrequencies[column] = {}
             for value in self.uniqueCategoryValues[column]:
                 if value == '_Other':

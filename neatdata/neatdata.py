@@ -13,14 +13,9 @@ from neatdata.columnmetadata.columnnamecleaner import *
 from neatdata.datetime.datetimecleaner import *
 from neatdata.indexer.indexer import *
 from neatdata.number.numbercleaner import *
-from neatdata.number.numbermetadata import *
-from neatdata.number.numbervalueassigner import *
 from neatdata.numpyhelper.numpyhelper import *
 from neatdata.testdataset.testdataset import *
-from neatdata.y.missingyrowdropper import *
-from neatdata.y.ybalancer import *
 from neatdata.y.ycleaner import *
-from neatdata.y.yconverter import *
 
 
 class NeatData:
@@ -43,7 +38,7 @@ class NeatData:
     def _initial(self, trainX, trainY):
         self._validateTrainingInput(trainX, trainY)
         self.yCleaner = YCleaner()
-        trainX, trainY = self.yCleaner.execute(trainX, trainY)
+        trainX, trainY = self.yCleaner.cleanTrainingY(trainX, trainY)
         trainX, self.indexColumns, self.skipColumns = ColumnNameCleaner().execute(trainX, self.indexColumns, self.skipColumns)
         self.numberColumns, self.categoryColumns, self.datetimeColumns = ColumnDataTypeGetter().execute(trainX, self.indexColumns, self.skipColumns)
         return trainX, trainY
