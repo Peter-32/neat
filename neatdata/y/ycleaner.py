@@ -22,10 +22,10 @@ class YCleaner:
         self.yConverter = YConverter()
         self.yConverter.setYMappings(trainY)
 
-    def convertToNumber(self, trainY):
+    def convertToNumberForModeling(self, trainY):
         if not self.trained: raise Exception('Error: Use cleanTrainingY(x, y) before using convertToNumber(trainY).')
-        return self.yConverter.convertToNumber(trainY)
+        return self.yConverter.convertToNumberForModeling(trainY)
 
-    def convertToString(self, trainY):
+    def convertToStringOrNumberForPresentation(self, trainY):
         if not self.trained: raise Exception('Error: Use cleanTrainingY(x, y) before using convertToString(trainY).')
-        return self.yConverter.convertToString(trainY)
+        return self.yConverter.convertToStringOrNumberForPresentation(trainY)

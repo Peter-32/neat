@@ -14,4 +14,5 @@ class CategoryDropColumns:
             if len(uniqueValues) == 1 and uniqueValues[0] == None:
                 columnsToRemove.append(column)
                 self.categoryColumns.remove(column)
-        return self.trainX.drop(columnsToRemove, 1)
+        columnsDropped.append(columnsToRemove)
+        return self.trainX.drop(columnsToRemove, 1), columnsToRemove

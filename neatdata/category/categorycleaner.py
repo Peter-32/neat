@@ -4,13 +4,13 @@ class CategoryCleaner:
         self.trainX, self.categoryColumns = None, None
         self.categoryMetadata = None
 
-    def train(self, trainX, categoryColumns):
+    def train(self, trainX, categoryColumns, columnsDropped):
         self.trainX, self.categoryColumns = trainX, categoryColumns
         self.categoryMetadata = CategoryMetadata()
-        self.categoryMetadata.train(trainX, self.categoryColumns)
+        self.categoryMetadata.train(trainX, self.categoryColumns, columnsDropped)
         self.categoryDropColumns = CategoryDropColumns()
         trainX = self.categoryDropColumns.execute(trainX, self.categoryColumns)
-        return clean(trainX, self.categoryMetadata)
+        return clean(trainX)
 
     def clean(self, x):
         x = categoryValueAssigner().execute(x, self.categoryColumns, self.categoryMetadata)
