@@ -1,9 +1,16 @@
 class CategoryCleaner:
 
-    def __init__(self):
-        pass
+    def __init__():
+        self.trainX, self.categoryColumns = None, None
+        self.categoryMetadata = None
 
-    def execute(self):
-        # trainX, trainY = MissingYRowDropper().execute(trainX, trainY)
-        # trainX, trainY = YBalancer().execute(trainX, trainY)
-        return trainX, trainY
+    def train(self, trainX, categoryColumns):
+        self.trainX, self.categoryColumns = trainX, categoryColumns
+        self.categoryMetadata = CategoryMetadata()
+        self.categoryMetadata.train(trainX, self.categoryColumns)
+        self.categoryDropColumns = CategoryDropColumns().execute(trainX, self.categoryColumns)
+        return clean(trainX)
+
+    def clean(self, x):
+        x = categoryValueAssigner().execute(x, self.categoryColumns, self.categoryMetadata)
+        return x

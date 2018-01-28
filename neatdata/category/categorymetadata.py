@@ -1,3 +1,32 @@
 class CategoryMetadata:
+    
     def __init__(self):
         pass
+
+
+
+    def _saveUniqueCategoryValues(self):
+        for column in self.categoryColumns:
+            self.uniqueCategoryValues[column] = []
+            for value in self.df[column].unique():
+                if value == None or pd.isnull(value):
+                    continue
+                else:
+                    self.uniqueCategoryValues[column].append(value)
+            self.uniqueCategoryValues[column].append('_Other')
+
+    def _saveCategoryFrequenciesAndValuesThatDontMapTo_Other(self):
+        for column in self.categoryColumns:
+            _otherFrequency = 0
+            self.valuesThatDontMapTo_Other[column] = ['_Other']
+            frequencyPercentage = pd.value_counts(self.df[column].values, sort=False, normalize=True)
+            self.categoryFrequencies[column] = {}
+            for value in self.uniqueCategoryValues[column]:
+                if value == '_Other':
+                    continue
+                elif frequencyPercentage[value] < .05:
+                    _otherFrequency = _otherFrequency + frequencyPercentage[value]
+                else:
+                    self.valuesThatDontMapTo_Other[column].append(value)
+                    self.categoryFrequencies[column][value] = frequencyPercentage[value]
+            self.categoryFrequencies[column]['_Other'] = _otherFrequency
