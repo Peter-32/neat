@@ -3,9 +3,12 @@
 class CategoryValueAssigner:
 
     def __init__(self):
-        pass
+        self.x, self.categoryColumns, self.categoryMetadata = None, None, None
 
-
+    def execute(self, x, categoryColumns, categoryMetadata):
+        self.x, self.categoryColumns, self.categoryMetadata = x, categoryColumns, categoryMetadata
+        self._fixMissingCategoryValuesAndMapValuesTo_Other()
+        self._applyOneHotEncoding()
 
     def _fixMissingCategoryValuesAndMapValuesTo_Other(self):
         for i, row in self.df.iterrows():

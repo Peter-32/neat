@@ -34,11 +34,12 @@ class NeatData:
         self.numberCleaner = NumberCleaner()
         trainX = self.numberCleaner.execute(trainX, deepcopy(self.numberColumns))
         self.categoryCleaner = CategoryCleaner()
-        trainX = self.categoryCleaner.execute(trainX, deepcopy(self.categoryColumns))
+        trainX = self.categoryCleaner.execute(trainX, self.categoryColumns)
         return trainX, trainY
 
     def _final(self, trainX, trainY):
         self.indexer = Indexer() #TODO: delete this comment.  All indexing should be last in this iteration.
+        # TODO: Collect a distinct list of all columns in the three datatype column lists - include indexes and skipped columns
         return trainX, trainY
 
 

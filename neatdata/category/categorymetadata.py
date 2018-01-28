@@ -1,9 +1,15 @@
 class CategoryMetadata:
-    
+
     def __init__(self):
-        pass
+        self.trainX, self.categoryColumns = None, None
+        self.valuesThatDontMapTo_Other = None
+        self.categoryFrequencies = None
 
-
+    def train(trainX, categoryColumns):
+        self.trainX, self.categoryColumns = trainX, categoryColumns
+        self.valuesThatDontMapTo_Other, self.categoryFrequencies = {}, {}
+        self._saveUniqueCategoryValues()
+        self._saveCategoryFrequenciesAndValuesThatDontMapTo_Other()
 
     def _saveUniqueCategoryValues(self):
         for column in self.categoryColumns:

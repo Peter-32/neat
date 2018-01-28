@@ -8,7 +8,8 @@ class CategoryCleaner:
         self.trainX, self.categoryColumns = trainX, categoryColumns
         self.categoryMetadata = CategoryMetadata()
         self.categoryMetadata.train(trainX, self.categoryColumns)
-        self.categoryDropColumns = CategoryDropColumns().execute(trainX, self.categoryColumns)
+        self.categoryDropColumns = CategoryDropColumns()
+        trainX = self.categoryDropColumns.execute(trainX, self.categoryColumns)
         return clean(trainX)
 
     def clean(self, x):
