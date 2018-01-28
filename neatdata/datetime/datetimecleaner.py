@@ -6,7 +6,7 @@ class DatetimeCleaner:
         self.datetimeColumns = None
         self.x = None
 
-    def execute(self, x, datetimeColumns):
+    def clean(self, x, datetimeColumns):
         self.x, self.datetimeColumns = x, datetimeColumns
         self._convertDatetimeToNumber()
         return x

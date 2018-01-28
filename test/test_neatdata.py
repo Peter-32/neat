@@ -24,62 +24,62 @@ class TestNeatData(unittest.TestCase):
         # Act
         # Assert
         self.assertRaises(Exception, neatdata.cleanTrainingDataset, trainX, trainY)
-    # 
-    # def testNeatData_TestCleanTrainingDataset_ColumnsStayTheSame(self):
-    #     # Assemble
-    #     neatdata = NeatData()
-    #     now = pd.datetime.now()
-    #     trainX = pd.DataFrame({'col1': [1,1,1,1,1,1,1],
-    #                            'col2': ['a','a','a','a','a','a','a'],
-    #                            'col3': [now,now,now,now,now,now,now]})
-    #     trainY = ['a','b','c','a','b','c','a']
-    #     # Act
-    #     cleanTrainX, cleanTrainY = neatdata.cleanTrainingDataset(trainX, trainY)
-    #     # Assert
-    #     for i, row in cleanTrainX.iterrows():
-    #         self.assertEqual(row['col1'], 1)
-    #         self.assertEqual(row['col2'], 'a')
-    #         self.assertEqual(row['col3'], 0)
-    #
-    # def testNeatData_TestCleanTrainingDataset_ColumnDefaultValues(self):
-    #     # Assemble
-    #     neatdata = NeatData()
-    #     now = pd.datetime.now()
-    #     trainX = pd.DataFrame({'col1': [1,2,3,None,None,-np.inf,np.inf],
-    #                            'col2': ['a','a','a',None,None,None,None],
-    #                            'col3': [now,now,now,None,None,None,None]})
-    #     trainY = ['a','b','c','a','b','c','a']
-    #     # Act
-    #     cleanTrainX, cleanTrainY = neatdata.cleanTrainingDataset(trainX, trainY)
-    #     # Assert
-    #     j = 0
-    #     for i, row in cleanTrainX.iterrows():
-    #         self.assertEqual(row['col2'], 'a')
-    #         self.assertEqual(row['col3'], 0)
-    #         if j < 5:
-    #             self.assertEqual(row['col1'], 2)
-    #         elif j == 5:
-    #             self.assertEqual(row['col1'], 1)
-    #         elif j == 6:
-    #             self.assertEqual(row['col1'], 3)
-    #         j = j + 1
-    #
-    # def testNeatData_TestCleanTrainingDataset_DropEmptyColumn(self):
-    #     # Assemble
-    #     neatdata = NeatData()
-    #     now = pd.datetime.now()
-    #     trainX = pd.DataFrame({'col1': [1,1,1,1,1,1,1],
-    #                            'col2': [None,None,None,None,None,None,None],
-    #                            'col3': [now,now,now,now,now,now,now]})
-    #     trainY = ['a','b','c','a','b','c','a']
-    #     # Act
-    #     cleanTrainX, cleanTrainY = neatdata.cleanTrainingDataset(trainX, trainY)
-    #     # Assert
-    #     columns = cleanTrainX.columns.values.tolist()
-    #     self.assertEqual('col1' in columns, True)
-    #     self.assertEqual('col2' in columns, False)
-    #     self.assertEqual('col3' in columns, True)
-    #
+
+    def testNeatData_TestCleanTrainingDataset_ColumnsStayTheSame(self):
+        # Assemble
+        neatdata = NeatData()
+        now = pd.datetime.now()
+        trainX = pd.DataFrame({'col1': [1,1,1,1,1,1,1],
+                               'col2': ['a','a','a','a','a','a','a'],
+                               'col3': [now,now,now,now,now,now,now]})
+        trainY = ['a','b','c','a','b','c','a']
+        # Act
+        cleanTrainX, cleanTrainY = neatdata.cleanTrainingDataset(trainX, trainY)
+        # Assert
+        for i, row in cleanTrainX.iterrows():
+            self.assertEqual(row['col1'], 1)
+            self.assertEqual(row['col2'], 'a')
+            self.assertEqual(row['col3'], 0)
+
+    def testNeatData_TestCleanTrainingDataset_ColumnDefaultValues(self):
+        # Assemble
+        neatdata = NeatData()
+        now = pd.datetime.now()
+        trainX = pd.DataFrame({'col1': [1,2,3,None,None,-np.inf,np.inf],
+                               'col2': ['a','a','a',None,None,None,None],
+                               'col3': [now,now,now,None,None,None,None]})
+        trainY = ['a','b','c','a','b','c','a']
+        # Act
+        cleanTrainX, cleanTrainY = neatdata.cleanTrainingDataset(trainX, trainY)
+        # Assert
+        j = 0
+        for i, row in cleanTrainX.iterrows():
+            self.assertEqual(row['col2'], 'a')
+            self.assertEqual(row['col3'], 0)
+            if j < 5:
+                self.assertEqual(row['col1'], 2)
+            elif j == 5:
+                self.assertEqual(row['col1'], 1)
+            elif j == 6:
+                self.assertEqual(row['col1'], 3)
+            j = j + 1
+
+    def testNeatData_TestCleanTrainingDataset_DropEmptyColumn(self):
+        # Assemble
+        neatdata = NeatData()
+        now = pd.datetime.now()
+        trainX = pd.DataFrame({'col1': [1,1,1,1,1,1,1],
+                               'col2': [None,None,None,None,None,None,None],
+                               'col3': [now,now,now,now,now,now,now]})
+        trainY = ['a','b','c','a','b','c','a']
+        # Act
+        cleanTrainX, cleanTrainY = neatdata.cleanTrainingDataset(trainX, trainY)
+        # Assert
+        columns = cleanTrainX.columns.values.tolist()
+        self.assertEqual('col1' in columns, True)
+        self.assertEqual('col2' in columns, False)
+        self.assertEqual('col3' in columns, True)
+
 
 
 

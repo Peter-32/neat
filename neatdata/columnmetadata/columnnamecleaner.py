@@ -4,13 +4,13 @@ class ColumnNameCleaner:
         pass
 
     def execute(trainX, indexColumns, skipColumns):
-        trainX = self._cleanColumnNamesOnDF(trainX)
+        trainX = self.cleanColumnNamesOnDF(trainX)
         indexColumns = self._cleanArrayOfColumnNames(indexColumns)
         skipColumns = self._cleanArrayOfColumnNames(skipColumns)
 
         return trainX, indexColumns, skipColumns
 
-    def _cleanColumnNamesOnDF(self):
+    def cleanColumnNamesOnDF(self, trainX):
         trainX.columns = trainX.columns.str.strip().str.lower().str.replace(' ', '_')
         return trainX
 

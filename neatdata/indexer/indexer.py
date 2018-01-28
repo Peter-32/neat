@@ -6,7 +6,7 @@ class Indexer:
     def execute(self, x, trainY, indexColumns):
         self.x, self.trainY, self.indexColumns = x, trainY, indexColumns
         self._dropDuplicatesAndMissingRowsIfIndexIsSpecified()
-        self._addIndex()
+        x = self._addIndex()
         return x
 
 
@@ -24,10 +24,11 @@ class Indexer:
             self.trainY = self.x['__trainY__'].values
             self.x = self.x.drop(['__trainY__'], 1)
 
-    def _addIndex(self):
+    def addIndex(self, x):
         indexColumns = []
-        self.x['_id'] = np.arange(1,len(self.x.index)+1)
+        x['_id'] = np.arange(1,len(x.index)+1)
         if self.indexColumns != []:
             indexColumns = list(self.indexColumns)
         indexColumns.append('_id')
-        self.x = self.x.set_index(indexColumns)
+        x = x.set_index(indexColumns)
+        return x

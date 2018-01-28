@@ -4,7 +4,7 @@ class CategoryCleaner:
         self.trainX, self.categoryColumns = None, None
         self.categoryMetadata = None
 
-    def train(self, trainX, categoryColumns, columnsDropped):
+    def cleanAndLearn(self, trainX, categoryColumns, columnsDropped):
         self.trainX, self.categoryColumns = trainX, categoryColumns
         self.categoryMetadata = CategoryMetadata()
         self.categoryMetadata.train(trainX, self.categoryColumns, columnsDropped)
