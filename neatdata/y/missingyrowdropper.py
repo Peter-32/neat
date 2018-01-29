@@ -10,7 +10,8 @@ class MissingYRowDropper:
         self.rowsToDrop = []
         trainX['__trainY__'] = trainY
         self._appendToRowsToDropForNoneValue(trainX)
-        self._appendToRowsToDropForNanAndInf(trainX, trainY)
+        self._appendToRowsToDropForNumbers(trainX, trainY)
+        self._appendToRowsToDropForStrings(trainX, trainY)
         trainX = trainX.drop(trainX.index[self.rowsToDrop])
         trainY = trainX['__trainY__'].values
         trainX = trainX.drop(['__trainY__'], 1)
@@ -20,9 +21,15 @@ class MissingYRowDropper:
         for i, row in trainX.iterrows():
             self.rowsToDrop.append(i) if row['__trainY__'] == None else None
 
-    def _appendToRowsToDropForNanAndInf(self, trainX, trainY):
+    def _appendToRowsToDropForNumbers(self, trainX, trainY):
         if not isStringType(trainY):
             for i, row in trainX.iterrows():
                 self.rowsToDrop.append(i) if np.isnan(row['__trainY__']) else None
                 self.rowsToDrop.append(i) if row['__trainY__'] == np.inf else None
                 self.rowsToDrop.append(i) if row['__trainY__'] == -np.inf else None
+
+    def _appendToRowsToDropForStrings(self, trainX, trainY):
+        if isStringType(trainY):
+            for i, row in trainX.iterrows():
+                if row['__trainY__'] != None:
+                    self.rowsToDrop.append(i) if row['__trainY__'].strip() == "" else None

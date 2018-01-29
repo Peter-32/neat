@@ -17,7 +17,7 @@ class YCleaner:
         self._initializeYConverter(trainY)
         trainX, trainY = YBalancer().execute(trainX, trainY)
         self.trained = True
-        trainY = convertYToNumbersForModeling(trainY)
+        trainY = self.convertYToNumbersForModeling(trainY)
         return trainX, trainY
 
     def _initializeYConverter(self, trainY):
