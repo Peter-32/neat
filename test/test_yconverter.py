@@ -13,10 +13,10 @@ class TestYConverter(unittest.TestCase):
         # Act
         yConverter = YConverter()
         yConverter.setYMappings(strings)
-        test1 = yConverter.convertToNumberForModeling(strings)
-        test2 = yConverter.convertToStringOrNumberForPresentation(strings)
-        test3 = yConverter.convertToNumberForModeling(numbers)
-        test4 = yConverter.convertToStringOrNumberForPresentation(numbers)
+        test1 = yConverter.convertYToNumbersForModeling(strings)
+        test2 = yConverter.convertYToStringsOrNumbersForPresentation(strings)
+        test3 = yConverter.convertYToNumbersForModeling(numbers)
+        test4 = yConverter.convertYToStringsOrNumbersForPresentation(numbers)
         # Assert
         for i in range(len(strings)):
             self.assertEqual(test1[i], numbers[i])
@@ -31,12 +31,12 @@ class TestYConverter(unittest.TestCase):
         # Act
         yConverter = YConverter()
         yConverter.setYMappings(numbers)
-        test1 = yConverter.convertToNumberForModeling(numbers)
-        test2 = yConverter.convertToStringOrNumberForPresentation(numbers)
+        test1 = yConverter.convertYToNumbersForModeling(numbers)
+        test2 = yConverter.convertYToStringsOrNumbersForPresentation(numbers)
         # Assert
         for i in range(len(strings)):
-            self.assertRaises(Exception, yConverter.convertToNumberForModeling, strings)
-            self.assertRaises(Exception, yConverter.convertToStringOrNumberForPresentation, strings)
+            self.assertRaises(Exception, yConverter.convertYToNumbersForModeling, strings)
+            self.assertRaises(Exception, yConverter.convertYToStringsOrNumbersForPresentation, strings)
             self.assertEqual(test1[i], numbers[i])
             self.assertEqual(test2[i], numbers[i])
 

@@ -2,4 +2,11 @@
 setup.cfg
 setup.py
 neatdata/neatdata.py
-test/test_neatds.py
+test/test_columndatatypegetter.py
+test/test_datetimecleaner.py
+test/test_missingyrowdropper.py
+test/test_neatdata.py
+test/test_numpyhelper.py
+test/test_ybalancer.py
+test/test_ycleaner.py
+test/test_yconverter.py

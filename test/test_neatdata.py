@@ -53,7 +53,6 @@ class TestNeatData(unittest.TestCase):
         cleanTrainX, cleanTrainY = neatdata.cleanTrainingDataset(trainX, trainY)
         # Assert
         j = 0
-        print(cleanTrainX)
         for i, row in cleanTrainX.iterrows():
             self.assertEqual(row['col2__a'], 1)
             self.assertEqual(row['col3'], 0)

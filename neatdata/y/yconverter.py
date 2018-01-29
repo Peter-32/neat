@@ -28,10 +28,10 @@ class YConverter:
                 self._trainYMappingsNumToStr[i] = value
                 i = i + 1
 
-    def convertToNumberForModeling(self, y):
+    def convertYToNumbersForModeling(self, y):
         y = castAsNumpy(y)
         yIsStringType = isStringType(y)
-        self._raiseExceptionsForConvertToNumberForModeling(yIsStringType)
+        self._raiseExceptionsForConvertYToNumbersForModeling(yIsStringType)
         if yIsStringType and self._stringWasPassedToMapping:
             return self._convertStringToNumber(y)
         elif not yIsStringType and self._stringWasPassedToMapping:
@@ -41,7 +41,7 @@ class YConverter:
         else:
             raise Exception('Error: Impossible event.')
 
-    def _raiseExceptionsForConvertToNumberForModeling(self, yIsStringType):
+    def _raiseExceptionsForConvertYToNumbersForModeling(self, yIsStringType):
         if not self._setYMappingsWasRun: raise Exception('Error: run setYMappings before convertToNumber')
         if not self._stringWasPassedToMapping and yIsStringType: raise Exception('Error: Y was not string during setYMappings, therefore Y must be a number.')
 
@@ -74,10 +74,10 @@ class YConverter:
                 y[i] = -99
         return y
 
-    def convertToStringOrNumberForPresentation(self, y):
+    def convertYToStringsOrNumbersForPresentation(self, y):
         y = castAsNumpy(y)
         yIsStringType = isStringType(y)
-        self._raiseExceptionsForconvertToStringOrNumberForPresentation(yIsStringType)
+        self._raiseExceptionsForConvertYToStringsOrNumbersForPresentation(yIsStringType)
         if yIsStringType and self._stringWasPassedToMapping:
             return self._convertStringToString(y)
         elif not yIsStringType and self._stringWasPassedToMapping:
@@ -87,7 +87,7 @@ class YConverter:
         else:
             raise Exception('Error: Impossible event.')
 
-    def _raiseExceptionsForconvertToStringOrNumberForPresentation(self, yIsStringType):
+    def _raiseExceptionsForConvertYToStringsOrNumbersForPresentation(self, yIsStringType):
         if not self._setYMappingsWasRun: raise Exception('Error: run setYMappings before convertToString')
         if not self._stringWasPassedToMapping and yIsStringType: raise Exception('Error: Y was not string during setYMappings, so converting from string to number is not possible..')
 

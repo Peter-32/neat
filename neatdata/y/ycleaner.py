@@ -24,10 +24,10 @@ class YCleaner:
         self.yConverter = YConverter()
         self.yConverter.setYMappings(trainY)
 
-    def convertToNumberForModeling(self, trainY):
+    def convertYToNumbersForModeling(self, trainY):
         if not self.trained: raise Exception('Error: Use cleanTrainingY(x, y) before using convertToNumber(trainY).')
-        return self.yConverter.convertToNumberForModeling(trainY)
+        return self.yConverter.convertYToNumbersForModeling(trainY)
 
-    def convertToStringOrNumberForPresentation(self, trainY):
+    def convertYToStringsOrNumbersForPresentation(self, trainY):
         if not self.trained: raise Exception('Error: Use cleanTrainingY(x, y) before using convertToString(trainY).')
-        return self.yConverter.convertToStringOrNumberForPresentation(trainY)
+        return self.yConverter.convertYToStringsOrNumbersForPresentation(trainY)

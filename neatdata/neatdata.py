@@ -63,7 +63,7 @@ class NeatData:
 
     def cleanTestDataset(self, testX):
         self._validateCleanedTrainingDataset()
-        self._cleanTestDataset(testX)
+        return self._cleanTestDataset(testX)
 
     def _validateCleanedTrainingDataset(self):
         if self.finalColumnNames == None: raise Exception('Error: cleanTrainingDataset() must be run first.')
@@ -77,11 +77,11 @@ class NeatData:
         testX = TestDataset().execute(self, x, columnsDropped, finalColumnNames)
         return testX
 
-    def convertToNumberForModeling(self, testY):
-        return self.yCleaner.convertToNumberForModeling(testY)
+    def convertYToNumbersForModeling(self, testY):
+        return self.yCleaner.convertYToNumbersForModeling(testY)
 
-    def convertToStringOrNumberForPresentation(self, testY):
-        return self.yCleaner.convertToStringOrNumberForPresentation(testY)
+    def convertYToStringsOrNumbersForPresentation(self, testY):
+        return self.yCleaner.convertYToStringsOrNumbersForPresentation(testY)
 
 
 ### throwaway test:
