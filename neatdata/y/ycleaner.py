@@ -14,10 +14,10 @@ class YCleaner:
     def cleanTrainingY(self, trainX, trainY):
         trainY = castAsNumpy(trainY)
         trainX, trainY = MissingYRowDropper().execute(trainX, trainY)
-        if isStringType(trainY):
-            self._initializeYConverter(trainY)
+        self._initializeYConverter(trainY)
         trainX, trainY = YBalancer().execute(trainX, trainY)
         self.trained = True
+        trainY = convertYToNumbersForModeling(trainY)
         return trainX, trainY
 
     def _initializeYConverter(self, trainY):
