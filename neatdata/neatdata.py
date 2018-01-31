@@ -55,7 +55,7 @@ class NeatData:
     def _validateCleanedTrainingDataset(self):
         if self.finalColumnNames == None: raise Exception('Error: cleanTrainingDataset() must be run first.')
 
-    def _cleanTestDataset(testX):
+    def _cleanTestDataset(self, testX):
         ColumnNameCleaner().cleanColumnNamesOnDF(testX)
         testX = self.datetimeCleaner.clean(testX, deepcopy(self.datetimeColumns))
         testX = self.numberCleaner.clean(testX)
