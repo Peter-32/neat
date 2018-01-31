@@ -10,13 +10,13 @@ class NeatData:
     def __init__(self):
         self.indexer = None # TODO: Unsure
         self.numberColumns, self.categoryColumns, self.datetimeColumns = None, None, None
-        self.indexColumns, self.skipColumns = None, None
+        self.indexColumns, self.iWillManuallyCleanColumns = None, None
         self.columnsDropped = []
         self.finalColumnNames = None
         self.yCleaner = None
 
-    def cleanTrainingDataset(self, trainX, trainY, indexColumns=[], skipColumns=[]):
-        self.indexColumns, self.skipColumns = indexColumns, skipColumns
+    def cleanTrainingDataset(self, trainX, trainY, indexColumns=[], iWillManuallyCleanColumns=[]):
+        self.indexColumns, self.iWillManuallyCleanColumns = indexColumns, iWillManuallyCleanColumns
         trainX, trainY = self._initial(trainX, trainY)
         trainX, trainY = self._datatypeSpecific(trainX, trainY)
         trainX, trainY = self._final(trainX, trainY)
@@ -26,8 +26,8 @@ class NeatData:
         self._validateTrainingInput(trainX, trainY)
         self.yCleaner = YCleaner()
         trainX, trainY = self.yCleaner.cleanTrainingY(trainX, trainY)
-        trainX, self.indexColumns, self.skipColumns = ColumnNameCleaner().execute(trainX, self.indexColumns, self.skipColumns)
-        self.numberColumns, self.categoryColumns, self.datetimeColumns = ColumnDataTypeGetter().execute(trainX, self.indexColumns, self.skipColumns)
+        trainX, self.indexColumns, self.iWillManuallyCleanColumns = ColumnNameCleaner().execute(trainX, self.indexColumns, self.iWillManuallyCleanColumns)
+        self.numberColumns, self.categoryColumns, self.datetimeColumns = ColumnDataTypeGetter().execute(trainX, self.indexColumns, self.iWillManuallyCleanColumns)
         return trainX, trainY
 
     def _validateTrainingInput(self, trainX, trainY):
@@ -61,7 +61,7 @@ class NeatData:
         testX = self.numberCleaner.clean(testX)
         testX = self.categoryCleaner.clean(testX)
         testX = self.indexer.addIndex(testX)
-        testX = TestDataset().execute(self, x, columnsDropped, finalColumnNames)
+        testX = TestDataset().execute(testX, self.columnsDropped, self.finalColumnNames)
         return testX
 
     def convertYToNumbersForModeling(self, testY):
@@ -280,12 +280,12 @@ class ColumnNameCleaner:
     def __init__(self):
         pass
 
-    def execute(self, trainX, indexColumns, skipColumns):
+    def execute(self, trainX, indexColumns, iWillManuallyCleanColumns):
         trainX = self.cleanColumnNamesOnDF(trainX)
         indexColumns = self._cleanArrayOfColumnNames(indexColumns)
-        skipColumns = self._cleanArrayOfColumnNames(skipColumns)
+        iWillManuallyCleanColumns = self._cleanArrayOfColumnNames(iWillManuallyCleanColumns)
 
-        return trainX, indexColumns, skipColumns
+        return trainX, indexColumns, iWillManuallyCleanColumns
 
     def cleanColumnNamesOnDF(self, trainX):
         trainX.columns = trainX.columns.str.strip().str.lower().str.replace(' ', '_')
@@ -307,11 +307,11 @@ class ColumnDataTypeGetter:
     def __init__(self):
         pass
 
-    def execute(self, trainX, indexColumns, skipColumns):
+    def execute(self, trainX, indexColumns, iWillManuallyCleanColumns):
         numberColumns, categoryColumns, datetimeColumns, columns = [], [], [], trainX.columns.values.tolist()
         for column in columns:
             datatype = trainX[column].dtype
-            if column in indexColumns or column in skipColumns: pass
+            if column in indexColumns or column in iWillManuallyCleanColumns: pass
             elif datatype == 'int64' or datatype == 'float64':
                 numberColumns.append(column)
             elif datatype == 'object':
@@ -476,8 +476,8 @@ class CategoryDropColumns:
             uniqueValues = self.trainX[column].unique()
             if len(uniqueValues) == 1 and uniqueValues[0] == None:
                 columnsToRemove.append(column)
+                self.columnsDropped.append(column)
                 self.categoryColumns.remove(column)
-        self.columnsDropped.append(columnsToRemove)
         return self.trainX.drop(columnsToRemove, 1)
 
 class CategoryValueAssigner:
