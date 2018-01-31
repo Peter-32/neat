@@ -1,7 +1,7 @@
 import unittest
 import pandas as pd
 import numpy as np
-from neatdata.columnmetadata.columndatatypegetter import *
+from neatdata.neatdata import *
 
 class TestColumnDataTypeGetter(unittest.TestCase):
 

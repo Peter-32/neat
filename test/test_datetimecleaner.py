@@ -2,7 +2,7 @@ import unittest
 import pandas as pd
 import numpy as np
 from copy import deepcopy
-from neatdata.datetime.datetimecleaner import *
+from neatdata.neatdata import *
 
 class TestDatetimeCleaner(unittest.TestCase):
 
