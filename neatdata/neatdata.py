@@ -62,6 +62,7 @@ class NeatData:
         testX = self.categoryCleaner.clean(testX)
         testX = self.indexer.addIndex(testX)
         testX = TestDataset().execute(testX, self.columnsDropped, self.finalColumnNames)
+        print(testX)
         return testX
 
     def convertYToNumbersForModeling(self, testY):
@@ -565,7 +566,7 @@ class TestDataset:
         self._newDataDropDroppedColumns()
         self._newDataAddMissingFinalColumnNames()
         self._newDataDropExtraColumnNames()
-        return x
+        return self.x
 
     def _newDataDropDroppedColumns(self):
         self.x = self.x.drop(self.columnsDropped, axis=1)
