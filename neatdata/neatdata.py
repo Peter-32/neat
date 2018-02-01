@@ -44,7 +44,7 @@ class NeatData:
 
     def _final(self, trainX, trainY):
         self.indexer = Indexer() #TODO: delete this comment.  All indexing should be last in this iteration.
-        self.indexer.execute(trainX, trainY, deepcopy(self.indexColumns))
+        trainX = self.indexer.execute(trainX, trainY, deepcopy(self.indexColumns))
         self.finalColumnNames = list(trainX)
         return trainX, trainY
 
