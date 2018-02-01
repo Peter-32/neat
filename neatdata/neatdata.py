@@ -62,7 +62,6 @@ class NeatData:
         testX = self.categoryCleaner.clean(testX)
         testX = self.indexer.addIndex(testX)
         testX = TestDataset().execute(testX, self.columnsDropped, self.finalColumnNames)
-        print(testX)
         return testX
 
     def convertYToNumbersForModeling(self, testY):
