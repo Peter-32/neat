@@ -13,4 +13,4 @@ Run this command:
 
 This tutorial covers neatbook and neatdata.  Even if you don't use them together, you can see the neatdata API in action using neatbook.
 
-http://data-in-model-out.com/2018/01/13/one-line-of-code-5-of-6-modeling-steps-automated/
+http://data-in-model-out.com/2018/01/13/neatbook-an-interactive-notebook-for-classification/
