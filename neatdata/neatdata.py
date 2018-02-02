@@ -287,7 +287,7 @@ class ColumnNameCleaner:
         return trainX, indexColumns, iWillManuallyCleanColumns
 
     def cleanColumnNamesOnDF(self, trainX):
-        trainX.columns = trainX.columns.astype(str)
+        trainX.columns = ["c_" + str(col) for col in trainX.columns]
         trainX.columns = trainX.columns.str.strip().str.lower().str.replace(' ', '_')
         return trainX
 
@@ -395,12 +395,8 @@ class NumberValueAssigner:
         self.x = self.x.fillna(self.numberMetadata.upperBounds)
 
     def _fixHighLeveragePoints(self):
-        print(self.numberMetadata.upperBounds)
-        for i, row in self.x.iterrows():    
+        for i, row in self.x.iterrows():
             for column in self.numberColumns:
-                print(column)
-                print(row[column])
-                print(row[column].dtype)
                 if row[column] > self.numberMetadata.upperBounds[column]:
                     self.x.at[i, column] = self.numberMetadata.upperBounds[column]
                 if row[column] < self.numberMetadata.lowerBounds[column]:
