@@ -284,10 +284,10 @@ class ColumnNameCleaner:
         trainX = self.cleanColumnNamesOnDF(trainX)
         indexColumns = self._cleanArrayOfColumnNames(indexColumns)
         iWillManuallyCleanColumns = self._cleanArrayOfColumnNames(iWillManuallyCleanColumns)
-
         return trainX, indexColumns, iWillManuallyCleanColumns
 
     def cleanColumnNamesOnDF(self, trainX):
+        trainX.columns = trainX.columns.astype(str)
         trainX.columns = trainX.columns.str.strip().str.lower().str.replace(' ', '_')
         return trainX
 
