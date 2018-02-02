@@ -395,6 +395,7 @@ class NumberValueAssigner:
         self.x = self.x.fillna(self.numberMetadata.upperBounds)
 
     def _fixHighLeveragePoints(self):
+        print(self.numberColumns)
         for i, row in self.x.iterrows():
             for column in self.numberColumns:
                 if row[column] > self.numberMetadata.upperBounds[column]:
