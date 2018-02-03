@@ -287,7 +287,7 @@ class ColumnNameCleaner:
         return trainX, indexColumns, iWillManuallyCleanColumns
 
     def cleanColumnNamesOnDF(self, trainX):
-        trainX.columns = ["c_" + str(col) for col in trainX.columns]
+        trainX.columns = [str(col) for col in trainX.columns]
         trainX.columns = trainX.columns.str.strip().str.lower().str.replace(' ', '_')
         return trainX
 
