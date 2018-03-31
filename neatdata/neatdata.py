@@ -524,7 +524,7 @@ class CategoryValueAssigner:
 class Indexer:
 
     def __init__(self):
-        self.x, self.trainY, self.indexColumns = None, None, None
+        self.x, self.trainY, self.indexColumns = None, None, []
 
     def execute(self, x, trainY, indexColumns):
         self.x, self.trainY, self.indexColumns = x, trainY, indexColumns
